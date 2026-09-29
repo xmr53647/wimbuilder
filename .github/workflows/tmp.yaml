@@ -1,0 +1,46 @@
+name: Sync uup-converter-wimlib
+
+on:
+  workflow_dispatch:  # 手动触发
+  # schedule:
+  #   - cron: '0 0 * * 0'  # 也可用定时触发（每周日零点）
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 检出当前仓库（默认已配置 GITHUB_TOKEN 凭据）
+      - name: Checkout current repo
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: true
+
+      # 2. 克隆 BatUtil 仓库（浅克隆加速）
+      - name: Clone BatUtil
+        run: |
+          git clone --depth 1 https://github.com/abbodi1406/BatUtil.git .batutil
+
+      # 3. 复制文件夹并重命名，然后提交推送
+      - name: Copy and commit
+        run: |
+          # 删除旧的 converter 目录（如果存在）
+          rm -rf converter
+          
+          # 复制 uup-converter-wimlib 为 converter
+          cp -r .batutil/uup-converter-wimlib converter
+          
+          # 配置 git 提交身份（github-actions bot 用户）
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # 暂存并提交（如果没有变化则跳过提交）
+          git add converter
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: sync uup-converter-wimlib as converter"
+            git push
+          fi
+          
+          # 清理临时目录
+          rm -rf .batutil
