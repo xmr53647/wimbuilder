@@ -10,11 +10,11 @@ set _Debug=0
 :: 2 - create ISO with install.esd
 :: 3 - create install.wim only
 :: 4 - create install.esd only
-set AutoStart=0
+set AutoStart=1
 
 :: Change to 1 to integrate updates (if detected) into install.wim/winre.wim
 :: Change to 2 to add updates externally to iso distribution
-set AddUpdates=0
+set AddUpdates=1
 
 :: Change to 1 to cleanup images to delta-compress superseded components (Warning: on 18362 and later, this removes the base RTM Edition packages)
 set Cleanup=0
@@ -279,22 +279,14 @@ if %_Debug% neq 0 goto :check
 setlocal DisableDelayedExpansion
 
 :prompt
-@cls
-set _UUP=
-echo.
-echo Enter the path to UUP source directory
-echo %_ln1%
-echo.
-set /p _UUP=
-if not defined _UUP set _Debug=1&goto :QUIT
-set "_UUP=%_UUP:"=%"
+set "_UUP=%~dp0UUPs"
 if "%_UUP:~-1%"=="\" set "_UUP=%_UUP:~0,-1%"
 if not exist "%_UUP%\*.esd" (
 %_err%
-echo Specified path is not a valid UUP source
+echo Specified path is not a valid UUP source (%_UUP%)
 echo.
 %_Contn%&%_Pause%
-goto :prompt
+goto :QUIT
 )
 setlocal EnableDelayedExpansion
 
