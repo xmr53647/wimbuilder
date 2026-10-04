@@ -43,7 +43,7 @@ jobs:
 
           # 模拟调用你的 CLI 工具或脚本
           # 当 $ENV_ARG 为空时，它不会传递 -e 参数
-          .\UUPDownload.exe -s Professional -r Retail -b Retail -c vb_release -l ${{ github.event.inputs.lang }} -v $env:BUILD_NUMBER -y $ENV_ARG -t amd64 -o .\dl
+          .\UUPDownload.exe -s Professional -r Retail -b Retail -c vb_release -l ${{ github.event.inputs.lang }} -v $env:BUILD_NUMBER $ENV_ARG -t amd64 -o .\dl
           Get-ChildItem -Path "dl\*\*" -Recurse -File | Move-Item -Destination "converter\UUPs" -Force
       - name: Build wim
         shell: cmd
