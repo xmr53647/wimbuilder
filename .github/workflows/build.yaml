@@ -49,7 +49,7 @@ jobs:
         shell: cmd
         run: |
           cd converter
-          start /wait convert-UUP.cmd
+          call convert-UUP.cmd
       - name: pack
         shell: cmd
         run: |
