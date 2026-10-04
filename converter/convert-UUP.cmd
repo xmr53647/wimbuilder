@@ -279,22 +279,14 @@ if %_Debug% neq 0 goto :check
 setlocal DisableDelayedExpansion
 
 :prompt
-@cls
-set _UUP=
-echo.
-echo Enter the path to UUP source directory
-echo %_ln1%
-echo.
-set /p _UUP=
-if not defined _UUP set _Debug=1&goto :QUIT
-set "_UUP=%_UUP:"=%"
+set "_UUP=%~dp0UUPs"
 if "%_UUP:~-1%"=="\" set "_UUP=%_UUP:~0,-1%"
 if not exist "%_UUP%\*.esd" (
 %_err%
-echo Specified path is not a valid UUP source
+echo Specified path is not a valid UUP source (%_UUP%)
 echo.
 %_Contn%&%_Pause%
-goto :prompt
+goto :QUIT
 )
 setlocal EnableDelayedExpansion
 
