@@ -394,30 +394,13 @@ if %AutoStart% equ 2 (set AIO=1&set WIMFILE=install.esd&goto :ISO)
 if %AutoStart% equ 3 (set AIO=1&set WIMFILE=install.wim&goto :Single)
 if %AutoStart% equ 4 (set AIO=1&set WIMFILE=install.esd&goto :Single)
 @cls
-set _index=
-echo.
-echo       UUP source contains multiple editions:
-echo %_ln2%
-echo.
-for /L %%# in (1,1,%uups_esd_num%) do (
-echo %%#. !_name%%#!
-)
-echo %_ln2%
-echo.
-echo Enter zero '0' to create AIO
-echo Enter individual edition number to create solely
-echo Enter multiple editions numbers to create, separated with spaces
-echo %_ln1%
-echo.
-set /p _index= ^> Enter your option and press "Enter": 
-if not defined _index set _Debug=1&goto :QUIT
-if "%_index%"=="0" (set "_tag= AIO"&set "_ta2=AIO"&set AIO=1&goto :MAINMENU)
-for %%# in (%_index%) do call :setindex %%#
-if %_count% equ 1 for /L %%# in (1,1,%uups_esd_num%) do (
-if %_index1% equ %%# set "MetadataESD=!_UUP!\!uups_esd%%#!"&set "_flg=!edition%%#!"&set "arch=!arch%%#!"&set "langid=!langid%%#!"&set "editionid=!edition%%#!"&set "_oName=!_oname%%#!"&set "_Srvr=!_ESDSrv%%#!"&goto :MAINMENU
-)
+
+set "_index=0"
+set "_tag= AIO"
 set "_ta2=AIO"
-goto :MAINMENU
+set "AIO=1"
+set "WIMFILE=install.wim"
+goto :Single
 
 :setindex
 set /a _count+=1
