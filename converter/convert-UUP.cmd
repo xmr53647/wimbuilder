@@ -10,7 +10,7 @@ set _Debug=0
 :: 2 - create ISO with install.esd
 :: 3 - create install.wim only
 :: 4 - create install.esd only
-set AutoStart=1
+set AutoStart=3
 
 :: Change to 1 to integrate updates (if detected) into install.wim/winre.wim
 :: Change to 2 to add updates externally to iso distribution
@@ -38,7 +38,7 @@ set wim2esd=0
 set wim2swm=0
 
 :: Change to 1 for not creating ISO file, result distribution folder will be kept
-set SkipISO=0
+set SkipISO=1
 
 :: Change to 1 for not adding winre.wim into install.wim/install.esd
 set SkipWinRE=0
