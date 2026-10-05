@@ -38,7 +38,7 @@ jobs:
         run: |
           cd converter
           dir UUPs
-          call convert-UUP.cmd
+          echo 0 | call convert-UUP.cmd
       - name: pack
         shell: cmd
         run: |
