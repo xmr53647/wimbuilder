@@ -767,6 +767,7 @@ goto :QUIT
 
 :Single
 @cls
+set AddUpdates=1
 call :dk_color1 %Gray% "=== Running UUP Converter %uivr% ===" 4 5
 call :checkQE
 set _initial=1
